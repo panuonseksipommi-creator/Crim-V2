@@ -1,4 +1,4 @@
--- === Limppa Hub Crim Creator ZenLimppa - Safe ESP + Plus Crosshair + Wallbang ===
+-- === Limppa Hub - Safe ESP + Plus Crosshair + Wallbang | Creator ZenLimppa ===
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -10,10 +10,28 @@ local UserInputService = game:GetService("UserInputService")
 local Camera = Workspace.CurrentCamera
 local LocalPlayer = Players.LocalPlayer
 
+-- Full Bright
+local function FullBright()
+    Lighting.Brightness = 2
+    Lighting.ClockTime = 14
+    Lighting.FogEnd = 100000
+    Lighting.GlobalShadows = false
+    Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+    Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+    
+    for _, v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("MeshPart") then
+            v.Material = Enum.Material.SmoothPlastic
+        end
+    end
+end
+
+FullBright()
+
 local Window = Rayfield:CreateWindow({
-    Name = "Limppa Hub Crim Creator ZenLimppa",
-    LoadingTitle = "Limppa Hub Crim Creator ZenLimppa",
-    LoadingSubtitle = "Safe ESP + Plus Crosshair + Wallbang",
+    Name = "Limppa Hub",
+    LoadingTitle = "Limppa Hub",
+    LoadingSubtitle = "Creator ZenLimppa | Safe ESP + Wallbang",
     ConfigurationSaving = { Enabled = false },
 })
 
@@ -38,8 +56,8 @@ local espFillTransparency = 0.4
 local safeESP = true
 
 -- Plus Crosshair
-local crosshairH = Drawing.new("Line")  -- Horizontal
-local crosshairV = Drawing.new("Line")  -- Vertical
+local crosshairH = Drawing.new("Line")
+local crosshairV = Drawing.new("Line")
 
 local function UpdateCrosshair()
     local center = Camera.ViewportSize / 2
@@ -137,15 +155,15 @@ end
 -- MB2 Hold
 UserInputService.InputBegan:Connect(function(input, gpe)
     if gpe then return end
-    if input.UserInputType == Enum.UserInputType.MouseButton2 then 
-        aimlockEnabled = true 
+    if input.UserInputType == Enum.UserInputType.MouseButton2 then
+        aimlockEnabled = true
     end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton2 then 
-        aimlockEnabled = false 
-        aimlockTarget = nil 
+    if input.UserInputType == Enum.UserInputType.MouseButton2 then
+        aimlockEnabled = false
+        aimlockTarget = nil
     end
 end)
 
@@ -161,9 +179,9 @@ VisualsTab:CreateToggle({Name = "Safe ESP", CurrentValue = true, Callback = func
 VisualsTab:CreateColorPicker({Name = "ESP Fill Color", Color = Color3.fromRGB(255,0,0), Callback = function(c) espFillColor = c end})
 VisualsTab:CreateSlider({Name = "ESP Transparency", Range = {0,1}, Increment = 0.05, CurrentValue = 0.4, Callback = function(v) espFillTransparency = v end})
 
-VisualsTab:CreateToggle({Name = "Crosshair", CurrentValue = true, Callback = function(v) 
+VisualsTab:CreateToggle({Name = "Crosshair", CurrentValue = true, Callback = function(v)
     crosshairH.Visible = v
-    crosshairV.Visible = v 
+    crosshairV.Visible = v
 end})
 
 VisualsTab:CreateToggle({Name = "FOV Circle", CurrentValue = true, Callback = function(v) fovCircle.Visible = v end})
@@ -173,7 +191,6 @@ VisualsTab:CreateSlider({Name = "ClockTime", Range = {0,24}, Increment = 0.5, Cu
 RunService.RenderStepped:Connect(function()
     UpdateESP()
     UpdateCrosshair()
-
     fovCircle.Position = Camera.ViewportSize / 2
     fovCircle.Radius = fovValue
 
@@ -195,4 +212,4 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
-Rayfield:Notify({Title = "Loaded Successfully", Content = "Limppa Hub Crim Creator ZenLimppa | Safe ESP + Crosshair + Wallbang", Duration = 6})
+Rayfield:Notify({Title = "Loaded Successfully", Content = "Limppa Hub | Creator ZenLimppa", Duration = 6})
